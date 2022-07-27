@@ -1,3 +1,7 @@
+/*
+TODO: Move the EmbedBuilder outside of each if statement.
+*/
+
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const fetch = require('node-fetch');
 
@@ -33,7 +37,6 @@ module.exports = {
 			const response = await fetch("https://computernewb.com/vncresolver/api/random");
 			const json = await response.json();
 
-			//create an embed
 			const embed = new EmbedBuilder()
 				.setTitle(`VNC Server - ${json.id}`)
 				.setURL(`http://computernewb.com/vncresolver/dark/browse/?id=${json.id}`)
@@ -42,7 +45,7 @@ module.exports = {
 			interaction.editReply({ embeds: [embed] });
 		} else if(cmd == "id"){
 			const id = interaction.options.getString("id");
-			//make a get request to https://computernewb.com/vncresolver/api/random
+			//make a get request to https://computernewb.com/vncresolver/api/id/${id}
 			const response = await fetch(`https://computernewb.com/vncresolver/api/id/${id}`);
 			const json = await response.json();
 
@@ -52,7 +55,6 @@ module.exports = {
 				return;
 			}
 
-			//create an embed
 			const embed = new EmbedBuilder()
 				.setTitle(`VNC Server - ${json.id}`)
 				.setURL(`http://computernewb.com/vncresolver/dark/browse/?id=${json.id}`)
@@ -61,7 +63,7 @@ module.exports = {
 			interaction.editReply({ embeds: [embed] });
 		} else if(cmd == "country"){
 			const id = interaction.options.getString("iso-3166");
-			//make a get request to https://computernewb.com/vncresolver/api/random
+			//make a get request to https://computernewb.com/vncresolver/api/country/${id}
 			const response = await fetch(`https://computernewb.com/vncresolver/api/country/${id}`);
 			const json = await response.json();
 
@@ -71,7 +73,6 @@ module.exports = {
 				return;
 			}
 
-			//create an embed
 			const embed = new EmbedBuilder()
 				.setTitle(`VNC Server - ${json.id}`)
 				.setURL(`http://computernewb.com/vncresolver/dark/browse/?id=${json.id}`)
