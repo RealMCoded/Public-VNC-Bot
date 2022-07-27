@@ -62,7 +62,7 @@ module.exports = {
 				.setDescription(`**IP:** \`${json.ip}:${json.port}\`\n\n**Client Name:** ${json.clientname}\n\n**ASN (Org):** ${json.asn}\n\n**Location:** ${json.city}, ${json.state}, ${json.country} :flag_${json.country.toLowerCase()}:\n\n**Hostname:** \`${json.hostname}\`\n\n**ISO 3166:** ${json.country}\n\n**Screen Resolution:** ${json.screenres}\n\n**ID**: \`${json.id}\``)
 			interaction.editReply({ embeds: [embed] });
 		} else if(cmd == "country"){
-			const id = interaction.options.getString("iso-3166");
+			const id = interaction.options.getString("iso-3166").toUpperCase();
 			//make a get request to https://computernewb.com/vncresolver/api/country/${id}
 			const response = await fetch(`https://computernewb.com/vncresolver/api/country/${id}`);
 			const json = await response.json();
