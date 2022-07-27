@@ -14,6 +14,10 @@ module.exports = {
 			.setDescription("Learn more about what VNCs are"))
 		.addSubcommand(subcommand =>
 			subcommand
+			.setName("honeypot")
+			.setDescription("Learn about Honeypots"))
+		.addSubcommand(subcommand =>
+			subcommand
 			.setName("github")
 			.setDescription("Get a link to the bot's Github!")),
 	async execute(interaction) {
@@ -22,8 +26,13 @@ module.exports = {
         if(cmd == "bot"){
             const embed = new EmbedBuilder()
                 .setTitle("About Public VNC Resolver")
-                .setDescription("Public VNC Resolver is a bot dedicated to showcasing all the insecure VNCs across the world for entertainment reasons.\n\n**NOTE: This bot is for research and entertainment purposes only! I am not responsible if anything bad happens!**")
+                .setDescription("Public VNC Resolver is a bot dedicated to showcasing all the insecure VNCs across the world for entertainment reasons.\n\n**NOTE: This bot is for research and entertainment purposes only! Proceed with caution when connecting, as you could connect to a Honeypot (</about honeypot:1001927609455738911>).**\n**I am not responsible if anything bad happens!**")
                 .setThumbnail("https://cdn.discordapp.com/avatars/740290115972235364/88ac1f814a3011a2d56076948cffd9e7.png")
+            await interaction.reply({embeds: [embed]})
+		} else if (cmd == "honeypot"){
+			const embed = new EmbedBuilder()
+                .setTitle("What are Honeypots?")
+                .setDescription("> In computer terminology, a honeypot is a trap set to detect, deflect or in some manner counteract attempts at unauthorized use of information systems. Generally, honeypots essentially turn the tables for Hackers and Computer Security Experts.")
             await interaction.reply({embeds: [embed]})
         } else if (cmd == "vnc"){
             const embed = new EmbedBuilder()
