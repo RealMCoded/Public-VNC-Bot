@@ -41,7 +41,7 @@ module.exports = {
 				.setTitle(`VNC Server - ${json.id}`)
 				.setURL(`http://computernewb.com/vncresolver/dark/browse/?id=${json.id}`)
 				.setImage(`http://computernewb.com/vncresolver/screenshots/${json.ip}_${json.port}.jpg`)
-				.setDescription(`**IP:** \`${json.ip}:${json.port}\`\n\n**Client Name:** ${json.clientname}\n\n**ASN (Org):** ${json.asn}\n\n**Location:** ${json.city}, ${json.state}, ${json.country} :flag_${json.country.toLowerCase()}:\n\n**Hostname:** \`${json.hostname}\`\n\n**ISO 3166:** ${json.country}\n\n**Screen Resolution:** ${json.screenres}\n\n**ID**: \`${json.id}\``)
+				.setDescription(`**IP:** \`${json.ip}:${json.port}\`\n\n**Client Name:** ${json.clientname}\n\n**ASN (Org):** ${json.asn}\n\n**Location:** ${json.city}, ${json.state}, ${json.country} :flag_${json.country.toLowerCase()}:\n\n**Hostname:** \`${json.hostname}\`\n\n**ISO 3166:** ${json.country}\n\n**Screen Resolution:** ${json.screenres}\n\n**ID**: \`${json.id}\`\n\n***To learn more about VNCs, run </about vnc:1001927609455738911>.***`)
 			interaction.editReply({ embeds: [embed] });
 		} else if(cmd == "id"){
 			const id = interaction.options.getString("id");
@@ -59,7 +59,7 @@ module.exports = {
 				.setTitle(`VNC Server - ${json.id}`)
 				.setURL(`http://computernewb.com/vncresolver/dark/browse/?id=${json.id}`)
 				.setImage(`http://computernewb.com/vncresolver/screenshots/${json.ip}_${json.port}.jpg`)
-				.setDescription(`**IP:** \`${json.ip}:${json.port}\`\n\n**Client Name:** ${json.clientname}\n\n**ASN (Org):** ${json.asn}\n\n**Location:** ${json.city}, ${json.state}, ${json.country} :flag_${json.country.toLowerCase()}:\n\n**Hostname:** \`${json.hostname}\`\n\n**ISO 3166:** ${json.country}\n\n**Screen Resolution:** ${json.screenres}\n\n**ID**: \`${json.id}\``)
+				.setDescription(`**IP:** \`${json.ip}:${json.port}\`\n\n**Client Name:** ${json.clientname}\n\n**ASN (Org):** ${json.asn}\n\n**Location:** ${json.city}, ${json.state}, ${json.country} :flag_${json.country.toLowerCase()}:\n\n**Hostname:** \`${json.hostname}\`\n\n**ISO 3166:** ${json.country}\n\n**Screen Resolution:** ${json.screenres}\n\n**ID**: \`${json.id}\`\n\n***To learn more about VNCs, run </about vnc:1001927609455738911>.***`)
 			interaction.editReply({ embeds: [embed] });
 		} else if(cmd == "country"){
 			const id = interaction.options.getString("iso-3166").toUpperCase();
@@ -77,7 +77,7 @@ module.exports = {
 				.setTitle(`VNC Server - ${json.id}`)
 				.setURL(`http://computernewb.com/vncresolver/dark/browse/?id=${json.id}`)
 				.setImage(`http://computernewb.com/vncresolver/screenshots/${json.ip}_${json.port}.jpg`)
-				.setDescription(`**IP:** \`${json.ip}:${json.port}\`\n\n**Client Name:** ${json.clientname}\n\n**ASN (Org):** ${json.asn}\n\n**Location:** ${json.city}, ${json.state}, ${json.country} :flag_${json.country.toLowerCase()}:\n\n**Hostname:** \`${json.hostname}\`\n\n**ISO 3166:** ${json.country}\n\n**Screen Resolution:** ${json.screenres}\n\n**ID**: \`${json.id}\``)
+				.setDescription(`**IP:** \`${json.ip}:${json.port}\`\n\n**Client Name:** ${json.clientname}\n\n**ASN (Org):** ${json.asn}\n\n**Location:** ${json.city}, ${json.state}, ${json.country} :flag_${json.country.toLowerCase()}:\n\n**Hostname:** \`${json.hostname}\`\n\n**ISO 3166:** ${json.country}\n\n**Screen Resolution:** ${json.screenres}\n\n**ID**: \`${json.id}\`\n\n***To learn more about VNCs, run </about vnc:1001927609455738911>.***`)
 			interaction.editReply({ embeds: [embed] });
 		}
 	},
