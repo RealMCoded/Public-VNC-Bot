@@ -2,5 +2,23 @@
   "dependencies": {
     "discord.js": "^14.0.3",
     "node-fetch": "^2.6.1"
-  }
+  },
+  "name": "vncbot",
+  "description": "*this is not my best work, there are a lot of optimizations that can be done.*",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RealMCoded/Public-VNC-Bot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RealMCoded/Public-VNC-Bot/issues"
+  },
+  "homepage": "https://github.com/RealMCoded/Public-VNC-Bot#readme"
 }
