@@ -1,5 +1,7 @@
 # Public VNC Resolver Discord Bot
 
+*this is not my best work, there are a lot of optimizations that can be done.*
+
 Public VNC Resolver is a bot dedicated to showcasing all the insecure VNCs across the world. For research and entertainment purposes only!
 
 If you wish, you can invite the public version of the bot by [clicking on this cool blue text](https://discord.com/api/oauth2/authorize?client_id=740290115972235364&permissions=18432&scope=applications.commands%20bot).
