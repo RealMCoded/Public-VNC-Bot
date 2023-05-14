@@ -1,13 +1,11 @@
 {
   "dependencies": {
-    "discord.js": "^14.0.3",
-    "node-fetch": "^2.6.1"
+    "discord.js": "^14.0.3"
   },
   "name": "vncbot",
-  "description": "*this is not my best work, there are a lot of optimizations that can be done.*",
-  "version": "1.0.0",
+  "description": "Public VNC Resolver is a bot dedicated to showcasing all the insecure VNCs across the world. For research and entertainment purposes only! ",
+  "version": "1.5.0",
   "main": "index.js",
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -1,9 +1,4 @@
-/*
-TODO: Move the EmbedBuilder outside of each if statement.
-*/
-
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
-const fetch = require('node-fetch');
 
 module.exports = {
 	data: new SlashCommandBuilder()

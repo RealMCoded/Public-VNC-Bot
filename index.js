@@ -2,7 +2,6 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, GatewayIntentBits, ActivityType } = require('discord.js');
 const { token } = require('./config.json');
-const fetch = require('node-fetch');
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
@@ -17,8 +16,10 @@ for (const file of commandFiles) {
 }
 
 client.once('ready', async() => {
-	console.log('Ready!');
-	setStatus();
+	console.log(`✅ Signed in as ${client.user.tag}!`);
+	let response = await fetch("https://computernewb.com/vncresolver/api/scans/vnc/stats");
+	let json = await response.json();
+	client.user.setActivity(`${json.num_vncs} Public VNC Servers`, { type: ActivityType.Watching });
 });
 
 client.on('interactionCreate', async interaction => {
@@ -35,11 +36,5 @@ client.on('interactionCreate', async interaction => {
 		await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
 	}
 });
-
-async function setStatus() {
-	let response = await fetch("https://computernewb.com/vncresolver/api/scans/vnc/stats");
-	let json = await response.json();
-	client.user.setActivity(`${json.num_vncs} Public VNC Servers`, { type: ActivityType.Watching });
-}
 
 client.login(token);
