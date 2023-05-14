@@ -30,39 +30,27 @@ module.exports = {
 					.setRequired(true)
 					.setDescription("the ISO 3166-1 alpha-2 code for the country"))),
 	async execute(interaction) {
+		try {
+		let response, json;
 		const cmd = interaction.options.getSubcommand()
 		await interaction.deferReply()
-		if(cmd == "random"){
-			const response = await fetch("https://computernewb.com/vncresolver/api/scans/vnc/random");
-			const json = await response.json();
 
-			const embed = new EmbedBuilder()
-				.setTitle(`VNC Server - ${json.id}`)
-				.setURL(`http://computernewb.com/vncresolver/dark/browse/?id=${json.id}`)
-				.setImage(`http://computernewb.com/vncresolver/screenshots/${json.ip}_${json.port}.jpg`)
-				.setDescription(`**IP:** \`${json.ip}:${json.port}\`\n\n**Client Name:** ${json.clientname}\n\n**ASN (Org):** ${json.asn}\n\n**Location:** ${json.city}, ${json.state}, ${json.country} :flag_${json.country.toLowerCase()}:\n\n**Hostname:** \`${json.hostname}\`\n\n**ISO 3166:** ${json.country}\n\n**Screen Resolution:** ${json.screenres}\n\n**ID**: \`${json.id}\`\n\n***To learn more about VNCs, run </about vnc:1001927609455738911>.***`)
-			interaction.editReply({ embeds: [embed] });
+		if(cmd == "random"){
+			response = await fetch("https://computernewb.com/vncresolver/api/scans/vnc/random");
+			json = await response.json();
 		} else if(cmd == "id"){
 			const id = interaction.options.getString("id");
-			const response = await fetch(`https://computernewb.com/vncresolver/api/scans/vnc/id/${id}`);
-			const json = await response.json();
+			response = await fetch(`https://computernewb.com/vncresolver/api/scans/vnc/id/${id}`);
+			json = await response.json();
 
-			//check if JSON has error
 			if(json.error){
 				interaction.editReply(`❌ **This ID does not exist!**`);
 				return;
 			}
-
-			const embed = new EmbedBuilder()
-				.setTitle(`VNC Server - ${json.id}`)
-				.setURL(`http://computernewb.com/vncresolver/dark/browse/?id=${json.id}`)
-				.setImage(`http://computernewb.com/vncresolver/screenshots/${json.ip}_${json.port}.jpg`)
-				.setDescription(`**IP:** \`${json.ip}:${json.port}\`\n\n**Client Name:** ${json.clientname}\n\n**ASN (Org):** ${json.asn}\n\n**Location:** ${json.city}, ${json.state}, ${json.country} :flag_${json.country.toLowerCase()}:\n\n**Hostname:** \`${json.hostname}\`\n\n**ISO 3166:** ${json.country}\n\n**Screen Resolution:** ${json.screenres}\n\n**ID**: \`${json.id}\`\n\n***To learn more about VNCs, run </about vnc:1001927609455738911>.***`)
-			interaction.editReply({ embeds: [embed] });
 		} else if(cmd == "country"){
 			const id = interaction.options.getString("iso-3166").toUpperCase();
-			const response = await fetch(`https://computernewb.com/vncresolver/api/scans/vnc/search?country=${id}`);
-			const json = await response.json();
+			response = await fetch(`https://computernewb.com/vncresolver/api/scans/vnc/search?country=${id}`);
+			json = await response.json();
 
 			//check if JSON has error
 			if(json.error){
@@ -70,12 +58,41 @@ module.exports = {
 				return;
 			}
 
-			const embed = new EmbedBuilder()
+			//Because of an API change it pulls multiple at a time, so to add the randomness back we just pick from one of the provided results
+			let rndid = json.result[Math.floor(Math.random() * json.count)]
+			response = await fetch(`https://computernewb.com/vncresolver/api/scans/vnc/id/${id}`);
+			json = await response.json();
+		}
+
+		//Remove all empty strings with *N/A*
+		for (var key in json) {
+			if (json[key] == "") {
+				json[key] = "*N/A*";
+			}
+		}
+
+		var createdat = json.createdat.slice(0, -5)
+
+		const embed = new EmbedBuilder()
 				.setTitle(`VNC Server - ${json.id}`)
-				.setURL(`http://computernewb.com/vncresolver/dark/browse/?id=${json.id}`)
-				.setImage(`http://computernewb.com/vncresolver/screenshots/${json.ip}_${json.port}.jpg`)
-				.setDescription(`**IP:** \`${json.ip}:${json.port}\`\n\n**Client Name:** ${json.clientname}\n\n**ASN (Org):** ${json.asn}\n\n**Location:** ${json.city}, ${json.state}, ${json.country} :flag_${json.country.toLowerCase()}:\n\n**Hostname:** \`${json.hostname}\`\n\n**ISO 3166:** ${json.country}\n\n**Screen Resolution:** ${json.screenres}\n\n**ID**: \`${json.id}\`\n\n***To learn more about VNCs, run </about vnc:1001927609455738911>.***`)
+				.setURL(`https://computernewb.com/vncresolver/browse/#id/${json.id}`)
+				.setImage(`https://computernewb.com/vncresolver/api/scans/vnc/screenshot/${json.id}`)
+				.addFields({ name: 'IP', value: `\`${json.ip}:${json.port}\``, inline: true })
+				.addFields({ name: 'Client Name', value: json.clientname, inline: true })
+				.addFields({ name: 'ASN (Org)', value: json.asn, inline: true })
+				.addFields({ name: 'Location', value: `${json.city}, ${json.state}, ${json.country} :flag_${json.country.toLowerCase()}:`, inline: true })
+				.addFields({ name: 'Hostname', value: json.hostname, inline: true })
+				.addFields({ name: 'Screen Resolution', value: json.screenres, inline: true })
+				.addFields({ name: 'Client Name', value: json.clientname, inline: true })
+				.addFields({ name: 'OS Name', value: json.osname, inline: true})
+				.addFields({ name: 'Open Ports', value: json.openports, inline: true })
+				.addFields({ name: 'Username', value: json.username, inline: true })
+				.addFields({ name: 'Password', value: json.password, inline: true })
+				.addFields({ name: 'Index Date', value: `<t:${createdat}:f>`, inline: true })
+				.setFooter({text:'All information is shown at time of indexing and may be inaccurate.'})
 			interaction.editReply({ embeds: [embed] });
+		} catch (e) {
+			console.log(e)
 		}
 	},
 };
