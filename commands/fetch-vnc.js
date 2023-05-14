@@ -33,8 +33,7 @@ module.exports = {
 		const cmd = interaction.options.getSubcommand()
 		await interaction.deferReply()
 		if(cmd == "random"){
-			//make a get request to https://computernewb.com/vncresolver/api/random
-			const response = await fetch("https://computernewb.com/vncresolver/api/random");
+			const response = await fetch("https://computernewb.com/vncresolver/api/scans/vnc/random");
 			const json = await response.json();
 
 			const embed = new EmbedBuilder()
@@ -45,8 +44,7 @@ module.exports = {
 			interaction.editReply({ embeds: [embed] });
 		} else if(cmd == "id"){
 			const id = interaction.options.getString("id");
-			//make a get request to https://computernewb.com/vncresolver/api/id/${id}
-			const response = await fetch(`https://computernewb.com/vncresolver/api/id/${id}`);
+			const response = await fetch(`https://computernewb.com/vncresolver/api/scans/vnc/id/${id}`);
 			const json = await response.json();
 
 			//check if JSON has error
@@ -63,13 +61,12 @@ module.exports = {
 			interaction.editReply({ embeds: [embed] });
 		} else if(cmd == "country"){
 			const id = interaction.options.getString("iso-3166").toUpperCase();
-			//make a get request to https://computernewb.com/vncresolver/api/country/${id}
-			const response = await fetch(`https://computernewb.com/vncresolver/api/country/${id}`);
+			const response = await fetch(`https://computernewb.com/vncresolver/api/scans/vnc/search?country=${id}`);
 			const json = await response.json();
 
 			//check if JSON has error
 			if(json.error){
-				interaction.editReply(`❌ **Country name must be an [ISO 3166-1 alpha-2](<https://www.iban.com/country-codes>) code (i.e. GB for England, US for United States)**`);
+				interaction.editReply(`❌ **Country name must be an [ISO 3166-1 alpha-2](<https://www.iban.com/country-codes>) code (i.e. \`GB\` for England, \`US\` for United States)**`);
 				return;
 			}
 

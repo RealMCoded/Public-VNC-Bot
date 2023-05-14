@@ -37,7 +37,7 @@ client.on('interactionCreate', async interaction => {
 });
 
 async function setStatus() {
-	let response = await fetch("https://computernewb.com/vncresolver/api/stats");
+	let response = await fetch("https://computernewb.com/vncresolver/api/scans/vnc/stats");
 	let json = await response.json();
 	client.user.setActivity(`${json.num_vncs} Public VNC Servers`, { type: ActivityType.Watching });
 }
