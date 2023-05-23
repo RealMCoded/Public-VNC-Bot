@@ -55,7 +55,7 @@ module.exports = {
 
 			//Because of an API change it pulls multiple at a time, so to add the randomness back we just pick from one of the provided results
 			let rndid = json.result[Math.floor(Math.random() * json.count)]
-			response = await fetch(`https://computernewb.com/vncresolver/api/scans/vnc/id/${id}`);
+			response = await fetch(`https://computernewb.com/vncresolver/api/scans/vnc/id/${rndid}`);
 			json = await response.json();
 		}
 
