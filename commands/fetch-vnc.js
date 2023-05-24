@@ -76,7 +76,7 @@ module.exports = {
 				.addFields({ name: 'Client Name', value: json.clientname, inline: true })
 				.addFields({ name: 'ASN (Org)', value: json.asn, inline: true })
 				.addFields({ name: 'Location', value: `${json.city}, ${json.state}, ${json.country} :flag_${json.country.toLowerCase()}:`, inline: true })
-				.addFields({ name: 'Hostname', value: json.hostname, inline: true })
+				.addFields({ name: 'Hostname', value: json.hostname || "*N/A*", inline: true })
 				.addFields({ name: 'Screen Resolution', value: json.screenres, inline: true })
 				.addFields({ name: 'Client Name', value: json.clientname, inline: true })
 				.addFields({ name: 'OS Name', value: json.osname, inline: true})
