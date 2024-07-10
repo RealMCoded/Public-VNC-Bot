@@ -28,7 +28,7 @@ module.exports = {
                 .setTitle("About Public VNC Resolver")
                 .setDescription(`Public VNC Resolver is a bot dedicated to showcasing all the insecure VNCs across the world for entertainment reasons.
 				
-				**NOTE:** This bot is for research and entertainment purposes only! Proceed with caution when connecting, as you could connect to a Honeypot (</about honeypot:1001927609455738911>).
+				**NOTE:** This bot is for research and entertainment purposes only! Please do not attempt to connect to these VNCs, as you could connect to a Honeypot (</about honeypot:1001927609455738911>).
 				
 				**I am not responsible if anything bad happens!**`)
                 .setThumbnail("https://cdn.discordapp.com/avatars/740290115972235364/88ac1f814a3011a2d56076948cffd9e7.png")
@@ -36,13 +36,13 @@ module.exports = {
 		} else if (cmd == "honeypot"){
 			const embed = new EmbedBuilder()
                 .setTitle("What are Honeypots?")
-                .setDescription("> In computer terminology, a honeypot is a trap set to detect, deflect or in some manner counteract attempts at unauthorized use of information systems. Generally, honeypots essentially turn the tables for Hackers and Computer Security Experts.")
+                .setDescription("> In computer terminology, a honeypot is a trap set to detect, deflect or in some manner counteract attempts at unauthorized use of information systems. Generally, honeypots essentially turn the tables for Hackers and Computer Security Experts.\n\n*Source: [Honeypot (computing) - Wikipedia](https://en.wikipedia.org/wiki/Honeypot_(computing))*")
             await interaction.reply({embeds: [embed]})
         } else if (cmd == "vnc"){
             const embed = new EmbedBuilder()
                 .setTitle("What is a VNC")
-                .setDescription("*From [Wikipedia, the free encyclopedia](https://en.wikipedia.org/wiki/Virtual_Network_Computing)*\n\n> In computing, Virtual Network Computing is a graphical desktop-sharing system that uses the Remote Frame Buffer protocol to remotely control another computer. It transmits the keyboard and mouse input from one computer to another, relaying the graphical-screen updates, over a network.")
+                .setDescription("> In computing, Virtual Network Computing is a graphical desktop-sharing system that uses the Remote Frame Buffer protocol to remotely control another computer. It transmits the keyboard and mouse input from one computer to another, relaying the graphical-screen updates, over a network.\n\n*source: [Virtual Network Computing - Wikipedia](https://en.wikipedia.org/wiki/Virtual_Network_Computing)*")
             await interaction.reply({embeds: [embed]})
         } else if (cmd == "github"){
-            await interaction.reply("https://github.com/RealMCoded/Public-VNC-Bot")
+            await interaction.reply({content: "https://github.com/RealMCoded/Public-VNC-Bot", ephemeral: true})
     }}}
