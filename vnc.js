@@ -39,7 +39,7 @@ async function build_embed(json)
 		.addFields({ name: 'Username', value: json.username, inline: true })
 		.addFields({ name: 'Password', value: json.password, inline: true })
 		.addFields({ name: 'Index Date', value: `<t:${createdat}:f>`, inline: true })
-		.setFooter({text:'For research and entertainment purposes only. Please do not attempt to connect to these VNCs.'})
+		.setFooter({text:'For research and entertainment purposes only. Do not attempt to connect to these VNCs.'})
     return embed
 }
 

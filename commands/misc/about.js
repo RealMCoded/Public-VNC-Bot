@@ -19,7 +19,7 @@ module.exports = {
 		.addSubcommand(subcommand =>
 			subcommand
 			.setName("github")
-			.setDescription("Get a link to the bot's Github!")),
+			.setDescription("Get a link to the bot's Github (sent ephemerally)")),
 	async execute(interaction) {
         const cmd = interaction.options.getSubcommand()
 
