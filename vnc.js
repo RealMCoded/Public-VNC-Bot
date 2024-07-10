@@ -1,4 +1,5 @@
 const { EmbedBuilder } = require('discord.js');
+const iso = require("./iso3311a2.json")
 
 async function build_embed(json)
 {
@@ -84,6 +85,12 @@ async function vnc_name(name)
 
 async function vnc_country(country) 
 {
+    //check to see if its a valid ISO code before executing anything
+    if (!iso.includes(country))
+    {
+        return {error: `${country} is not a valid ISO 3166-1 alpha-2 code.`}
+    }
+
     const res = await fetch(`https://computernewb.com/vncresolver/api/scans/vnc/search?country=${country}`)
 
     let json = await res.json()
