@@ -1,6 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const { vnc_count, random_vnc, vnc_id, build_embed, vnc_name, vnc_country, vnc_asn } = require("../../vnc.js")
-const iso = require("../../iso3311a2.json")
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -81,7 +80,7 @@ module.exports = {
 					break;
 
 				case "country": 
-					json = await vnc_country(interaction.options.getString("country"));
+					json = await vnc_country(interaction.options.getString("iso-3166"));
 					break;
 			}
 
