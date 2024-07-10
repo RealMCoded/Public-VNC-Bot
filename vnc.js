@@ -67,9 +67,9 @@ async function vnc_id(id)
 
 async function vnc_name(name) 
 {
-    const res = await fetch(`https://computernewb.com/vncresolver/api/scans/vnc/search?clientname=${name}`)
+    const res = await fetch(`https://computernewb.com/vncresolver/api/scans/vnc/search?clientname=${name}&full=true`)
 
-    let json = await res.json()
+    const json = await res.json()
 
     if (json.count == 0)
     {
@@ -77,10 +77,7 @@ async function vnc_name(name)
     }
 
     //Because of an API change it pulls multiple at a time, so to add the randomness back we just pick from one of the provided results
-	let rnd_vnc = json.result[Math.floor(Math.random() * json.count)]
-	json = await vnc_id(rnd_vnc)
-
-    return json
+    return json.result[Math.floor(Math.random() * json.count)]
 }
 
 async function vnc_country(country) 
@@ -91,27 +88,24 @@ async function vnc_country(country)
         return {error: `${country} is not a valid ISO 3166-1 alpha-2 code.`}
     }
 
-    const res = await fetch(`https://computernewb.com/vncresolver/api/scans/vnc/search?country=${country}`)
+    const res = await fetch(`https://computernewb.com/vncresolver/api/scans/vnc/search?country=${country}&full=true`)
 
-    let json = await res.json()
+    const json = await res.json()
 
     if (json.count == 0)
         {
             return {error: `No results for search query ${country}`}
         }
 
-    //Because of an API change it pulls multiple at a time, so to add the randomness back we just pick from one of the provided results
-	let rnd_vnc = json.result[Math.floor(Math.random() * json.count)]
-	json = await vnc_id(rnd_vnc)
-
-    return json
+   //Because of an API change it pulls multiple at a time, so to add the randomness back we just pick from one of the provided results
+   return json.result[Math.floor(Math.random() * json.count)]
 }
 
 async function vnc_asn(asn) 
 {
-    const res = await fetch(`https://computernewb.com/vncresolver/api/scans/vnc/search?asn=${asn}`)
+    const res = await fetch(`https://computernewb.com/vncresolver/api/scans/vnc/search?asn=${asn}&full=true`)
 
-    let json = await res.json()
+    const json = await res.json()
 
     if (json.count == 0)
     {
@@ -119,10 +113,7 @@ async function vnc_asn(asn)
     }
 
     //Because of an API change it pulls multiple at a time, so to add the randomness back we just pick from one of the provided results
-	let rnd_vnc = json.result[Math.floor(Math.random() * json.count)]
-	json = await vnc_id(rnd_vnc)
-
-    return json
+    return json.result[Math.floor(Math.random() * json.count)]
 }
 
 module.exports = { vnc_count, random_vnc, vnc_id, build_embed, vnc_name, vnc_country, vnc_asn }
