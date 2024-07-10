@@ -1,6 +1,11 @@
 const { EmbedBuilder } = require('discord.js');
 const iso = require("./iso3311a2.json")
 
+/**
+ * Creates an embed based off of the provided JSON data for VNC information.
+ * @param {JSON} json 
+ * @returns Discord.JS Embed
+ */
 async function build_embed(json)
 {
     if (json.error)
@@ -38,6 +43,10 @@ async function build_embed(json)
     return embed
 }
 
+/**
+ * Returns the total number of VNC servers.
+ * @returns {int} VNC Count
+ */
 async function vnc_count() 
 {
     const res = await fetch("https://computernewb.com/vncresolver/api/scans/vnc/stats")
@@ -47,6 +56,10 @@ async function vnc_count()
     return json.num_vncs
 }
 
+/**
+ * Fetches a random VNC server.
+ * @returns {JSON} 
+ */
 async function random_vnc() 
 {
     const res = await fetch("https://computernewb.com/vncresolver/api/scans/vnc/random")
@@ -56,6 +69,11 @@ async function random_vnc()
     return json
 }
 
+/**
+ * Fetches a VNC server from it's ID.
+ * @param {String} id 
+ * @returns {JSON}
+ */
 async function vnc_id(id) 
 {
     const res = await fetch(`https://computernewb.com/vncresolver/api/scans/vnc/id/${id}`)
@@ -65,6 +83,11 @@ async function vnc_id(id)
     return json
 }
 
+/**
+ * Returns a random VNC server based off of it's client name.
+ * @param {String} name 
+ * @returns {JSON} 
+ */
 async function vnc_name(name) 
 {
     const res = await fetch(`https://computernewb.com/vncresolver/api/scans/vnc/search?clientname=${name}&full=true`)
@@ -80,6 +103,11 @@ async function vnc_name(name)
     return json.result[Math.floor(Math.random() * json.count)]
 }
 
+/**
+ * Returns a random VNC server based off of it's country.
+ * @param {String} country 
+ * @returns {JSON}
+ */
 async function vnc_country(country) 
 {
     //check to see if its a valid ISO code before executing anything
@@ -101,6 +129,11 @@ async function vnc_country(country)
    return json.result[Math.floor(Math.random() * json.count)]
 }
 
+/**
+ * Returns a random VNC server based off of it's ASN code.
+ * @param {String} asn 
+ * @returns {JSON}
+ */
 async function vnc_asn(asn) 
 {
     const res = await fetch(`https://computernewb.com/vncresolver/api/scans/vnc/search?asn=${asn}&full=true`)
