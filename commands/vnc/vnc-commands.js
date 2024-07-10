@@ -2,7 +2,7 @@ const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const { vnc_count, random_vnc, vnc_id, build_embed, vnc_name, vnc_country, vnc_asn } = require("../../vnc.js")
 
 module.exports = {
-	data: new SlashCommandBuilder()
+	/*data: new SlashCommandBuilder()
 		.setName('vnc')
 		.setDescription('VNC Commands')
         .addSubcommand(subcommand =>
@@ -44,7 +44,121 @@ module.exports = {
 			.addStringOption(string =>
 				string.setName("iso-3166")
 					.setRequired(true)
-					.setDescription("The ISO 3166-1 alpha-2 code for the country"))),
+					.setDescription("The ISO 3166-1 alpha-2 code for the country"))),*/
+	data: {
+		options: [
+		  {
+			type: 1,
+			name: 'count',
+			name_localizations: undefined,
+			description: 'Get a count of all indexed VNC servers',
+			description_localizations: undefined,
+			options: []
+		  },
+		  {
+			type: 1,
+			name: 'random',
+			name_localizations: undefined,
+			description: 'Get a random VNC server',
+			description_localizations: undefined,
+			options: []
+		  },
+		  {
+			type: 1,
+			name: 'id',
+			name_localizations: undefined,
+			description: 'Get a VNC server from its ID',
+			description_localizations: undefined,
+			options: [
+			  {
+				autocomplete: undefined,
+				type: 3,
+				choices: undefined,
+				name: 'id',
+				name_localizations: undefined,
+				description: 'The ID of the VNC server',
+				description_localizations: undefined,
+				required: true,
+				max_length: undefined,
+				min_length: undefined
+			  }
+			]
+		  },
+		  {
+			type: 1,
+			name: 'name',
+			name_localizations: undefined,
+			description: 'Get a random VNC server with a client name',
+			description_localizations: undefined,
+			options: [
+			  {
+				autocomplete: undefined,
+				type: 3,
+				choices: undefined,
+				name: 'name',
+				name_localizations: undefined,
+				description: 'The name to search for',
+				description_localizations: undefined,
+				required: true,
+				max_length: undefined,
+				min_length: undefined
+			  }
+			]
+		  },
+		  {
+			type: 1,
+			name: 'asn',
+			name_localizations: undefined,
+			description: 'Get a random VNC server with an ASN number',
+			description_localizations: undefined,
+			options: [
+			  {
+				autocomplete: undefined,
+				type: 3,
+				choices: undefined,
+				name: 'asn',
+				name_localizations: undefined,
+				description: 'The ASN to search for',
+				description_localizations: undefined,
+				required: true,
+				max_length: undefined,
+				min_length: undefined
+			  }
+			]
+		  },
+		  {
+			type: 1,
+			name: 'country',
+			name_localizations: undefined,
+			description: 'Get a random VNC server from a country using an ISO 3166-1 alpha-2 code',
+			description_localizations: undefined,
+			options: [
+			  {
+				autocomplete: undefined,
+				type: 3,
+				choices: undefined,
+				name: 'iso-3166',
+				name_localizations: undefined,
+				description: 'The ISO 3166-1 alpha-2 code for the country',
+				description_localizations: undefined,
+				required: true,
+				max_length: undefined,
+				min_length: undefined
+			  }
+			]
+		  }
+		],
+		name: 'vnc',
+		name_localizations: undefined,
+		description: 'VNC Commands',
+		description_localizations: undefined,
+		default_permission: undefined,
+		default_member_permissions: undefined,
+		dm_permission: undefined,
+		nsfw: undefined,
+		integration_types: [0, 1], //0=server installable, 1=user installable
+        contexts: [0, 1, 2], //0=GUILD, 1=BOT_DM, 2=PRIVATE_CHANNEL. You should be able to leave this as default.
+	  },
 	async execute(interaction) {
         let json;
 		const cmd = interaction.options.getSubcommand()

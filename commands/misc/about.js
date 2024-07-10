@@ -1,7 +1,7 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 
 module.exports = {
-	data: new SlashCommandBuilder()
+	/*data: new SlashCommandBuilder()
 		.setName('about')
 		.setDescription('about the bot and other things')
 		.addSubcommand(subcommand =>
@@ -19,7 +19,53 @@ module.exports = {
 		.addSubcommand(subcommand =>
 			subcommand
 			.setName("github")
-			.setDescription("Get a link to the bot's Github (sent ephemerally)")),
+			.setDescription("Get a link to the bot's Github (sent ephemerally)")),*/
+	data: {
+		options: [
+		  {
+			type: 1,
+			name: 'bot',
+			name_localizations: undefined,
+			description: 'Learn more about the bot',
+			description_localizations: undefined,
+			options: []
+		  },
+		  {
+			type: 1,
+			name: 'vnc',
+			name_localizations: undefined,
+			description: 'Learn more about what VNCs are',
+			description_localizations: undefined,
+			options: []
+		  },
+		  {
+			type: 1,
+			name: 'honeypot',
+			name_localizations: undefined,
+			description: 'Learn about Honeypots',
+			description_localizations: undefined,
+			options: []
+		  },
+		  {
+			type: 1,
+			name: 'github',
+			name_localizations: undefined,
+			description: "Get a link to the bot's Github (sent ephemerally)",
+			description_localizations: undefined,
+			options: []
+		  }
+		],
+		name: 'about',
+		name_localizations: undefined,
+		description: 'about the bot and other things',
+		description_localizations: undefined,
+		default_permission: undefined,
+		default_member_permissions: undefined,
+		dm_permission: undefined,
+		nsfw: undefined,
+		integration_types: [0, 1], //0=server installable, 1=user installable
+        contexts: [0, 1, 2], //0=GUILD, 1=BOT_DM, 2=PRIVATE_CHANNEL. You should be able to leave this as default.
+	  },
 	async execute(interaction) {
         const cmd = interaction.options.getSubcommand()
 
