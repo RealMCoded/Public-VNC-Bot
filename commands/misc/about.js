@@ -3,7 +3,7 @@ const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('about')
-		.setDescription('byeah')
+		.setDescription('about the bot and other things')
 		.addSubcommand(subcommand =>
 			subcommand
 			.setName("bot")
@@ -26,7 +26,11 @@ module.exports = {
         if(cmd == "bot"){
             const embed = new EmbedBuilder()
                 .setTitle("About Public VNC Resolver")
-                .setDescription("Public VNC Resolver is a bot dedicated to showcasing all the insecure VNCs across the world for entertainment reasons.\n\n**NOTE: This bot is for research and entertainment purposes only! Proceed with caution when connecting, as you could connect to a Honeypot (</about honeypot:1001927609455738911>).**\n**I am not responsible if anything bad happens!**")
+                .setDescription(`Public VNC Resolver is a bot dedicated to showcasing all the insecure VNCs across the world for entertainment reasons.
+				
+				**NOTE:** This bot is for research and entertainment purposes only! Proceed with caution when connecting, as you could connect to a Honeypot (</about honeypot:1001927609455738911>).
+				
+				**I am not responsible if anything bad happens!**`)
                 .setThumbnail("https://cdn.discordapp.com/avatars/740290115972235364/88ac1f814a3011a2d56076948cffd9e7.png")
             await interaction.reply({embeds: [embed]})
 		} else if (cmd == "honeypot"){

@@ -8,20 +8,16 @@ If you wish, you can invite the public version of the bot by [clicking on this c
 
 The bot is made with [Node.js](https://nodejs.org/en/), so you need to have that installed to start with.
 
-You also need to make a file called `config.json` and put the following information in it
-```json
-{
-    "clientId":"YOUR-BOTS-CLIENT-ID-HERE",
-    "token":"YOUR-BOTS-TOKEN-HERE"
-}
+You also need to make a file called `.env` and put the following information in it
+```
+CLIENT_ID = "YOUR-CLIENT-ID-HERE"
+CLIENT_TOKEN = "YOUR-CLIENT-TOKEN-HERE"
 ```
 
 It should look something like this when finished
-```json
-{
-    "clientId":"740290115972235364",
-    "token":"CvwkuJOkvquIZBxLISZaSlt-kHDtmLRMpzB0KWBzyloDQKMTuPzrpBEwZejB1UWO1sYt"
-}
+```
+CLIENT_ID = "740290115972235364"
+CLIENT_TOKEN = "CvwkuJOkvquIZBxLISZaSlt-kHDtmLRMpzB0KWBzyloDQKMTuPzrpBEwZejB1UWO1sYt"
 ```
 
 Next, Install all dependencies with `npm i`, and then launch it with `node index.js` !
