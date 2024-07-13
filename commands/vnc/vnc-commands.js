@@ -159,6 +159,7 @@ module.exports = {
 		integration_types: [0, 1], //0=server installable, 1=user installable
         contexts: [0, 1, 2], //0=GUILD, 1=BOT_DM, 2=PRIVATE_CHANNEL. You should be able to leave this as default.
 	  },
+	cooldown: 5,
 	async execute(interaction) {
         let json;
 		const cmd = interaction.options.getSubcommand()
