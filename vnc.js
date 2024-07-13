@@ -110,6 +110,8 @@ async function vnc_name(name)
  */
 async function vnc_country(country) 
 {
+    country = country.toUpperCase();
+    
     //check to see if its a valid ISO code before executing anything
     if (!iso.includes(country))
     {
