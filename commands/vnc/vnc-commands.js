@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits  } = require('discord.js');
 const { vnc_count, random_vnc, vnc_id, build_embed, vnc_name, vnc_country, vnc_asn } = require("../../vnc.js")
 
 module.exports = {
@@ -155,6 +155,11 @@ module.exports = {
 	  },
 	cooldown: 3,
 	async execute(interaction) {
+		//check perms before running
+		if (!interaction.channel.permissionsFor(interaction.guild.members.me).has(PermissionFlagsBits.EmbedLinks)) {
+			return interaction.reply({content: 'The bot (or you, if this is a user command) doesnt have permission to Embed Links in this channel.', ephemeral: true})
+		}
+
         let json;
 		const cmd = interaction.options.getSubcommand()
 		await interaction.deferReply()
@@ -195,13 +200,7 @@ module.exports = {
 
 			const embed = await build_embed(json)
 
-			try {
-				interaction.editReply({embeds: [embed]})
-			}
-			catch(e)
-			{
-				interaction.editReply(`⚠️Uh Oh! If you're reading this then something bad happened!\n\n\`\`\`js\n${e}\`\`\``)
-			}
+			await interaction.editReply({embeds: [embed]})
         }
     },
 };
