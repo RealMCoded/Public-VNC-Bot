@@ -149,17 +149,11 @@ module.exports = {
 		  }
 		],
 		name: 'vnc',
-		name_localizations: undefined,
 		description: 'VNC Commands',
-		description_localizations: undefined,
-		default_permission: undefined,
-		default_member_permissions: undefined,
-		dm_permission: undefined,
-		nsfw: undefined,
 		integration_types: [0, 1], //0=server installable, 1=user installable
         contexts: [0, 1, 2], //0=GUILD, 1=BOT_DM, 2=PRIVATE_CHANNEL. You should be able to leave this as default.
 	  },
-	cooldown: 5,
+	cooldown: 3,
 	async execute(interaction) {
         let json;
 		const cmd = interaction.options.getSubcommand()
@@ -201,7 +195,13 @@ module.exports = {
 
 			const embed = await build_embed(json)
 
-			interaction.editReply({embeds: [embed]})
+			try {
+				interaction.editReply({embeds: [embed]})
+			}
+			catch(e)
+			{
+				interaction.editReply(`⚠️Uh Oh! If you're reading this then something bad happened!\n\n\`\`\`js\n${e}\`\`\``)
+			}
         }
     },
 };
