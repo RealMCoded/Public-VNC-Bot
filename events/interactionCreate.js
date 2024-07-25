@@ -1,4 +1,4 @@
-const { Events, Collection } = require('discord.js');
+const { Events, Collection, PermissionsBitField } = require('discord.js');
 
 module.exports = {
 	name: Events.InteractionCreate,
@@ -6,6 +6,24 @@ module.exports = {
 		if (!interaction.isChatInputCommand()) return;
 
 		const command = interaction.client.commands.get(interaction.commandName);
+
+		//check perms before running commands
+		if (interaction.guild == null)
+		{
+			//running as a user command
+			const bitPermissions = new PermissionsBitField(interaction.member.permissions);
+	
+			if (!bitPermissions.has(PermissionsBitField.Flags.EmbedLinks)) {
+				return interaction.reply({content: "You don't have permission to Embed Links in this channel.", ephemeral: true})
+			}
+		}
+		else
+		{
+			//running in server
+			if (!interaction.channel.permissionsFor(interaction.guild.members.me).has(PermissionsBitField.Flags.EmbedLinks)) {
+				return interaction.reply({content: "The bot doesn't have permission to Embed Links in this channel.", ephemeral: true})
+			}
+		}
 
 		if (!command) {
 			console.error(`No command matching ${interaction.commandName} was found.`);
