@@ -1,6 +1,6 @@
 # Terms of service
 
-Last updated: July 10, 2024
+Last updated: September 17, 2024
 
 Terms of service for the "Public VNC Resolver" app. This guides our clients on how they can use the "Public VNC Resolver" app.
 
@@ -8,15 +8,17 @@ Terms of service for the "Public VNC Resolver" app. This guides our clients on h
 
 - **Bot Farm** means a server in which apps are added to artificially inflate the member count, or a server in which apps are used solely for command spam.
 
+- **App** refers to the "Public VNC Resolver" Discord application.
+
 ## Agreement 
 
 By using this app, you agree to the terms outlined in this agreement. If you do not agree, please stop using the app immediately.
 
 1. You must not use this app in any way that violates laws, rules, or regulations, or infringes on the rights of any third party.
 
-2. You agree not to add this app to bot farm servers.
+2. You agree not to add this app to "bot farm" servers.
 
-3. You acknowledge that the app owner has the right to prohibit any server from using the app.
+3. You acknowledge that the app owner has the right to prohibit any server or user from using the app.
 
 4. You understand that the app owner may modify or discontinue the app at any time, without prior notice. The app owner will not be liable to you or any third party for any modifications, suspensions, or discontinuations of the app.
 
