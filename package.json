@@ -1,7 +1,7 @@
 {
   "name": "vncbot",
   "description": "Public VNC Resolver is a bot dedicated to showcasing all the insecure VNCs across the world. For research and entertainment purposes only! ",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "main": "index.js",
   "scripts": {
     "run": "node .",
