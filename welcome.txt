@@ -1,0 +1,11 @@
+## Welcome to Public VNC Resolver!
+This appears to be your first time using the bot, so thank you very much for using it ^^.
+
+Public VNC Resolver is a Discord bot dedicated to showcasing all the insecure VNCs across the world, using [ComputerNewb's VNC Resolver](<https://computernewb.com/vncresolver/>) API.
+				
+I advise to **not** connect to any of the VNCs displayed here. Most of them are pretty old so they are offline, but the ones that are still online could be a [Honeypot](<https://en.wikipedia.org/wiki/Honeypot_(computing)>). I am not responsible if anything bad happens.
+## Useful links
+
+- [Terms of Service](<https://github.com/RealMCoded/Public-VNC-Bot/blob/master/TERMS-OF-SERVICE.md>)
+- [Privacy Policy](<https://github.com/RealMCoded/Public-VNC-Bot/blob/master/PRIVACY-POLICY.md>)
+- [VNC Resolver on Computernewb.com](<https://computernewb.com/vncresolver/>)

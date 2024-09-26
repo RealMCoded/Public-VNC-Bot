@@ -2,3 +2,4 @@ node_modules/
 *.env
 package-lock.json
 __OLD/
+warnings-shown.json

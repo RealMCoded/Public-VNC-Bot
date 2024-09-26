@@ -24,6 +24,12 @@ for (const folder of commandFolders) {
 	}
 }
 
+if (!fs.existsSync("./blocked.json"))
+	fs.writeFileSync("./blocked.json", JSON.stringify({"users": [],"guilds": []}))
+
+if (!fs.existsSync("./warnings-shown.json"))
+	fs.writeFileSync("./warnings-shown.json", "[]")
+
 const eventsPath = path.join(__dirname, 'events');
 const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
 

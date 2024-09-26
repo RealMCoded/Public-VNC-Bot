@@ -1,4 +1,5 @@
 const { Events, Collection, PermissionsBitField } = require('discord.js');
+const fs = require('node:fs');
 
 module.exports = {
 	name: Events.InteractionCreate,
@@ -55,6 +56,17 @@ module.exports = {
 
 		try {
 			await command.execute(interaction);
+
+			let users = JSON.parse(fs.readFileSync("./warnings-shown.json"))
+			
+			if (!users.includes(interaction.user.id))
+			{
+				let message = fs.readFileSync("./welcome.txt", 'utf-8')
+				interaction.followUp({ content: message, ephemeral: true })
+
+				users.push(interaction.user.id)
+				fs.writeFileSync("./warnings-shown.json", JSON.stringify(users))
+			}
 		} catch (error) {
 			console.error(error);
 			if (interaction.replied || interaction.deferred) {
