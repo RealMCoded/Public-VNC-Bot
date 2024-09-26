@@ -12,7 +12,10 @@ module.exports = {
 		.addSubcommand(subcommand =>
 			subcommand
 			.setName("random")
-			.setDescription("Get a random VNC server"))
+			.setDescription("Get a random VNC server")
+			.addBooleanOption(option =>
+				option.setName('extra-info')
+					.setDescription('Show Open Ports, OS Name, Username, and Password fields (usually blank)')))
 		.addSubcommand(subcommand =>
 			subcommand
 			.setName("id")
@@ -20,7 +23,10 @@ module.exports = {
 			.addStringOption(string =>
 				string.setName("id")
 					.setRequired(true)
-					.setDescription("The ID of the VNC server")))
+					.setDescription("The ID of the VNC server"))
+			.addBooleanOption(option =>
+				option.setName('extra-info')
+					.setDescription('Show Open Ports, OS Name, Username, and Password fields (usually blank)')))
         .addSubcommand(subcommand =>
 			subcommand
 			.setName("name")
@@ -28,7 +34,10 @@ module.exports = {
 			.addStringOption(string =>
 				string.setName("name")
 					.setRequired(true)
-					.setDescription("The name to search for")))
+					.setDescription("The name to search for"))
+			.addBooleanOption(option =>
+				option.setName('extra-info')
+					.setDescription('Show Open Ports, OS Name, Username, and Password fields (usually blank)')))
 		.addSubcommand(subcommand =>
 			subcommand
 			.setName("asn")
@@ -36,7 +45,10 @@ module.exports = {
 			.addStringOption(string =>
 				string.setName("asn")
 					.setRequired(true)
-					.setDescription("The ASN to search for")))
+					.setDescription("The ASN to search for"))
+			.addBooleanOption(option =>
+				option.setName('extra-info')
+					.setDescription('Show Open Ports, OS Name, Username, and Password fields (usually blank)')))
 		.addSubcommand(subcommand =>
 			subcommand
 			.setName("country")
@@ -44,8 +56,11 @@ module.exports = {
 			.addStringOption(string =>
 				string.setName("iso-3166")
 					.setRequired(true)
-					.setDescription("The ISO 3166-1 alpha-2 code for the country"))),*/
-	data: {
+					.setDescription("The ISO 3166-1 alpha-2 code for the country"))
+			.addBooleanOption(option =>
+				option.setName('extra-info')
+					.setDescription('Show Open Ports, OS Name, Username, and Password fields (usually blank)'))),*/
+	data:{
 		options: [
 		  {
 			type: 1,
@@ -61,7 +76,16 @@ module.exports = {
 			name_localizations: undefined,
 			description: 'Get a random VNC server',
 			description_localizations: undefined,
-			options: []
+			options: [
+			  {
+				name: 'extra-info',
+				name_localizations: undefined,
+				description: 'Show Open Ports, OS Name, Username, and Password fields (usually blank)',
+				description_localizations: undefined,
+				required: false,
+				type: 5
+			  }
+			]
 		  },
 		  {
 			type: 1,
@@ -81,6 +105,14 @@ module.exports = {
 				required: true,
 				max_length: undefined,
 				min_length: undefined
+			  },
+			  {
+				name: 'extra-info',
+				name_localizations: undefined,
+				description: 'Show Open Ports, OS Name, Username, and Password fields (usually blank)',
+				description_localizations: undefined,
+				required: false,
+				type: 5
 			  }
 			]
 		  },
@@ -102,6 +134,14 @@ module.exports = {
 				required: true,
 				max_length: undefined,
 				min_length: undefined
+			  },
+			  {
+				name: 'extra-info',
+				name_localizations: undefined,
+				description: 'Show Open Ports, OS Name, Username, and Password fields (usually blank)',
+				description_localizations: undefined,
+				required: false,
+				type: 5
 			  }
 			]
 		  },
@@ -123,6 +163,14 @@ module.exports = {
 				required: true,
 				max_length: undefined,
 				min_length: undefined
+			  },
+			  {
+				name: 'extra-info',
+				name_localizations: undefined,
+				description: 'Show Open Ports, OS Name, Username, and Password fields (usually blank)',
+				description_localizations: undefined,
+				required: false,
+				type: 5
 			  }
 			]
 		  },
@@ -144,18 +192,31 @@ module.exports = {
 				required: true,
 				max_length: undefined,
 				min_length: undefined
+			  },
+			  {
+				name: 'extra-info',
+				name_localizations: undefined,
+				description: 'Show Open Ports, OS Name, Username, and Password fields (usually blank)',
+				description_localizations: undefined,
+				required: false,
+				type: 5
 			  }
 			]
 		  }
 		],
 		name: 'vnc',
+		name_localizations: undefined,
 		description: 'VNC Commands',
+		description_localizations: undefined,
+		default_permission: undefined,
+		default_member_permissions: undefined,
+		dm_permission: undefined,
+		nsfw: undefined,
 		integration_types: [0, 1], //0=server installable, 1=user installable
         contexts: [0, 1, 2], //0=GUILD, 1=BOT_DM, 2=PRIVATE_CHANNEL. You should be able to leave this as default.
 	  },
 	cooldown: 3,
 	async execute(interaction) {
-
         let json;
 		const cmd = interaction.options.getSubcommand()
 		await interaction.deferReply()
@@ -171,6 +232,9 @@ module.exports = {
         }
         else
         {
+			//because 'extra-info' is optional, default to false if it's undefined.
+			const extra_info = interaction.options.getBoolean('extra-info') || false;
+
 			switch (cmd)
 			{
 				case "random": 
@@ -194,7 +258,7 @@ module.exports = {
 					break;
 			}
 
-			const embed = await build_embed(json)
+			const embed = await build_embed(json, extra_info)
 
 			await interaction.editReply({embeds: [embed]})
         }

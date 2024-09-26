@@ -6,7 +6,7 @@ const iso = require("./iso3311a2.json")
  * @param {JSON} json 
  * @returns Discord.JS Embed
  */
-async function build_embed(json)
+async function build_embed(json, extra_data = true)
 {
     if (json.error)
     {
@@ -34,12 +34,21 @@ async function build_embed(json)
 		.addFields({ name: 'Location', value: `${json.city}, ${json.state}, ${json.country} :flag_${json.country.toLowerCase()}:`, inline: true })
 		.addFields({ name: 'Hostname', value: json.hostname, inline: true })
 		.addFields({ name: 'Screen Resolution', value: json.screenres, inline: true })
-		.addFields({ name: 'OS Name', value: json.osname, inline: true})
-		.addFields({ name: 'Open Ports', value: json.openports, inline: true })
-		.addFields({ name: 'Username', value: json.username, inline: true })
-		.addFields({ name: 'Password', value: json.password, inline: true })
-		.addFields({ name: 'Index Date', value: `<t:${createdat}:f>`, inline: true })
 		.setFooter({text:'For research and entertainment purposes only. Do not attempt to connect to these VNCs.'})
+
+        //if the user asks for this extra data, add it...
+        if (extra_data)
+        {
+            embed
+                .addFields({ name: 'OS Name', value: json.osname, inline: true})
+                .addFields({ name: 'Open Ports', value: json.openports, inline: true })
+                .addFields({ name: 'Username', value: json.username, inline: true })
+                .addFields({ name: 'Password', value: json.password, inline: true })
+        }
+
+        //always add the index date last no matter what.
+        embed.addFields({ name: 'Index Date', value: `<t:${createdat}:f>`, inline: true })
+
     return embed
 }
 
