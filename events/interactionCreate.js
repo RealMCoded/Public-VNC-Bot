@@ -15,14 +15,14 @@ module.exports = {
 			const bitPermissions = new PermissionsBitField(interaction.member.permissions);
 	
 			if (!bitPermissions.has(PermissionsBitField.Flags.EmbedLinks)) {
-				return interaction.reply({content: "You don't have permission to Embed Links in this channel.", ephemeral: true})
+				return interaction.reply({content: "**You don't have permission to Embed Links in this channel.**", ephemeral: true})
 			}
 		}
 		else
 		{
 			//running in server
 			if (!interaction.channel.permissionsFor(interaction.guild.members.me).has(PermissionsBitField.Flags.EmbedLinks)) {
-				return interaction.reply({content: "The bot doesn't have permission to Embed Links in this channel.", ephemeral: true})
+				return interaction.reply({content: "**The bot doesn't have permission to Embed Links in this channel.**", ephemeral: true})
 			}
 		}
 
@@ -58,7 +58,7 @@ module.exports = {
 			await command.execute(interaction);
 
 			let users = JSON.parse(fs.readFileSync("./warnings-shown.json"))
-			
+
 			if (!users.includes(interaction.user.id))
 			{
 				let message = fs.readFileSync("./welcome.txt", 'utf-8')
