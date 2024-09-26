@@ -13,7 +13,7 @@
     "url": "git+https://github.com/RealMCoded/Public-VNC-Bot.git"
   },
   "author": "",
-  "license": "ISC",
+  "license": "AGPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/RealMCoded/Public-VNC-Bot/issues"
   },
