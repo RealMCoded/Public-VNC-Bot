@@ -11,16 +11,19 @@ module.exports = {
 		//check perms before running commands
 		if (interaction.guild == null)
 		{
-			//running as a user command
-			const bitPermissions = new PermissionsBitField(interaction.member.permissions);
-	
-			if (!bitPermissions.has(PermissionsBitField.Flags.EmbedLinks)) {
-				return interaction.reply({content: "**You don't have permission to Embed Links in this channel.**", ephemeral: true})
+			if (interaction.member != null) //running in server (installed to user)
+			{
+				const bitPermissions = new PermissionsBitField(interaction.member.permissions);
+		
+				if (!bitPermissions.has(PermissionsBitField.Flags.EmbedLinks)) {
+					return interaction.reply({content: "**You don't have permission to Embed Links in this channel.**", ephemeral: true})
+				}
 			}
+			//if interaction.member is null, it's running in a DM.
 		}
 		else
 		{
-			//running in server
+			//running in server (installed to server)
 			if (!interaction.channel.permissionsFor(interaction.guild.members.me).has(PermissionsBitField.Flags.EmbedLinks)) {
 				return interaction.reply({content: "**The bot doesn't have permission to Embed Links in this channel.**", ephemeral: true})
 			}
