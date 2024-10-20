@@ -22,7 +22,7 @@ async function build_embed(json, extra_data = true)
 		}
 	}
 
-	let createdat = json.createdat.slice(0, -5)
+	let createdat = json.createdat.toString().slice(0, -3)
 
 	const embed = new EmbedBuilder()
 		.setTitle(`VNC Server - ${json.id}`)
