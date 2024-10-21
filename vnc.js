@@ -112,7 +112,7 @@ async function vnc_country(country)
     //check to see if its a valid ISO code before executing anything
     if (!iso.includes(country))
     {
-        return {error: `${country} is not a valid ISO 3166-1 alpha-2 code.`}
+        return {error: `${country} is not a valid ISO 3166-1 alpha-2 code.\n\n[Click here to view a list of all codes](https://localizely.com/iso-3166-1-alpha-2-list/)`}
     }
 
     const res = await fetch(`https://computernewb.com/vncresolver/api/scans/vnc/search?country=${country}&full=true`)
