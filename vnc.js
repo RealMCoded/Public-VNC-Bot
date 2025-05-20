@@ -15,25 +15,27 @@ async function build_embed(json)
             .setDescription(`Server returned error: \"${json.error}\"`)
         return embed
     }
-    //Remove all empty strings with *N/A*
+    
+    //Replace null, undefined, or "" strings with "*N/A*""
 	for (let key in json) {
 		if (json[key] == "" || json[key] == null || json[key] == undefined) {
 			json[key] = "*N/A*";
 		}
 	}
 
-	let createdat = json.createdat.toString().slice(0, -3)
+	let createdat = json.scanned_on.toString()
 
 	const embed = new EmbedBuilder()
 		.setTitle(`VNC Server - ${json.id}`)
-		.setURL(`https://computernewb.com/vncresolver/browse/#id/${json.id}`)
-		.setImage(`https://computernewb.com/vncresolver/api/scans/vnc/screenshot/${json.id}`)
-		.addFields({ name: 'IP', value: `\`${json.ip}:${json.port}\``, inline: true })
-		.addFields({ name: 'Client Name', value: json.clientname, inline: true })
+		.setURL(`https://computernewb.com/vncresolver/embed?id=${json.id}`)
+		.setImage(`https://computernewb.com/vncresolver/api/v1/screenshot/${json.id}`)
+		.addFields({ name: 'IP', value: `\`${json.ip_address}:${json.port}\``, inline: true })
+		.addFields({ name: 'Client Name', value: json.desktop_name, inline: true })
 		.addFields({ name: 'ASN (Org)', value: json.asn, inline: true })
-		.addFields({ name: 'Location', value: `${json.city}, ${json.state}, ${json.country} :flag_${json.country.toLowerCase()}:`, inline: true })
-		.addFields({ name: 'Hostname', value: json.hostname, inline: true })
-		.addFields({ name: 'Screen Resolution', value: json.screenres, inline: true })
+		.addFields({ name: 'Location', value: `${json.geo_city}, ${json.geo_state}, ${json.geo_country} :flag_${json.geo_country.toLowerCase()}:`, inline: true })
+		.addFields({ name: 'Hostname', value: json.rdns_hostname, inline: true })
+		.addFields({ name: 'Screen Resolution', value: `${json.width}x${json.height}`, inline: true })
+        .addFields({ name: 'Password', value: json.password == "*N/A*" ? "(none)" : `||${json.password}||`, inline: true })
         .addFields({ name: 'Index Date', value: `<t:${createdat}:f>`, inline: true })
 		.setFooter({text:'For research and entertainment purposes only. Do not attempt to connect to these VNCs.'})
 
@@ -46,8 +48,7 @@ async function build_embed(json)
  */
 async function vnc_count() 
 {
-    const res = await fetch("https://computernewb.com/vncresolver/api/scans/vnc/stats")
-
+    const res = await fetch("https://computernewb.com/vncresolver/api/v1/stats")
     const json = await res.json()
 
     return json.num_vncs
@@ -59,8 +60,7 @@ async function vnc_count()
  */
 async function random_vnc() 
 {
-    const res = await fetch("https://computernewb.com/vncresolver/api/scans/vnc/random")
-
+    const res = await fetch("https://computernewb.com/vncresolver/api/v1/random")
     const json = await res.json()
 
     return json
@@ -73,8 +73,7 @@ async function random_vnc()
  */
 async function vnc_id(id) 
 {
-    const res = await fetch(`https://computernewb.com/vncresolver/api/scans/vnc/id/${id}`)
-
+    const res = await fetch(`https://computernewb.com/vncresolver/api/v1/id/${id}`)
     const json = await res.json()
 
     return json
@@ -87,17 +86,15 @@ async function vnc_id(id)
  */
 async function vnc_name(name) 
 {
-    const res = await fetch(`https://computernewb.com/vncresolver/api/scans/vnc/search?clientname=${name}&full=true`)
-
+    const res = await fetch(`https://computernewb.com/vncresolver/api/v1/search?desktop_name=${name}&full=true`)
     const json = await res.json()
+    let length = json.results.length
 
-    if (json.count == 0)
-    {
+    if (length == 0)
         return {error: `No results for search query ${name}`}
-    }
 
     //Because of an API change it pulls multiple at a time, so to add the randomness back we just pick from one of the provided results
-    return json.result[Math.floor(Math.random() * json.count)]
+    return json.results[Math.floor(Math.random() * length)]
 }
 
 /**
@@ -111,21 +108,17 @@ async function vnc_country(country)
     
     //check to see if its a valid ISO code before executing anything
     if (!iso.includes(country))
-    {
         return {error: `${country} is not a valid ISO 3166-1 alpha-2 code.\n\n[Click here to view a list of all codes](https://localizely.com/iso-3166-1-alpha-2-list/)`}
-    }
 
-    const res = await fetch(`https://computernewb.com/vncresolver/api/scans/vnc/search?country=${country}&full=true`)
-
+    const res = await fetch(`https://computernewb.com/vncresolver/api/v1/search?country=${country}&full=true`)
     const json = await res.json()
+    let length = json.results.length
 
-    if (json.count == 0)
-        {
-            return {error: `No results for search query ${country}`}
-        }
+    if (length == 0)
+        return {error: `No results for search query ${name}`}
 
-   //Because of an API change it pulls multiple at a time, so to add the randomness back we just pick from one of the provided results
-   return json.result[Math.floor(Math.random() * json.count)]
+    //Because of an API change it pulls multiple at a time, so to add the randomness back we just pick from one of the provided results
+    return json.results[Math.floor(Math.random() * length)]
 }
 
 /**
@@ -135,17 +128,15 @@ async function vnc_country(country)
  */
 async function vnc_asn(asn) 
 {
-    const res = await fetch(`https://computernewb.com/vncresolver/api/scans/vnc/search?asn=${asn}&full=true`)
-
+    const res = await fetch(`https://computernewb.com/vncresolver/api/v1/search?asn=${asn}&full=true`)
     const json = await res.json()
+    let length = json.results.length
 
-    if (json.count == 0)
-    {
+    if (length == 0)
         return {error: `No results for search query ${asn}`}
-    }
 
     //Because of an API change it pulls multiple at a time, so to add the randomness back we just pick from one of the provided results
-    return json.result[Math.floor(Math.random() * json.count)]
+    return json.results[Math.floor(Math.random() * length)]
 }
 
 module.exports = { vnc_count, random_vnc, vnc_id, build_embed, vnc_name, vnc_country, vnc_asn }
